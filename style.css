@@ -1,0 +1,241 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #1a1a2e;
+  color: #ffffff;
+  padding: 18px 32px;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.board {
+  display: flex;
+  gap: 20px;
+  padding: 28px 32px;
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+.column {
+  flex: 1;
+  min-width: 260px;
+  max-width: 340px;
+  background-color: #e4e8ef;
+  border-radius: 10px;
+  padding: 14px 12px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.column-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #444;
+}
+
+#col-todo   .column-title { color: #2563eb; }
+#col-doing  .column-title { color: #d97706; }
+#col-done   .column-title { color: #16a34a; }
+
+.column-count {
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 2px 9px;
+  min-width: 26px;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 60px;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: grab;
+  user-select: none;
+  position: relative;
+  transition: box-shadow 0.15s, opacity 0.15s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.card.dragging {
+  opacity: 0.35;
+  box-shadow: none;
+}
+
+.card-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1a1a2e;
+  padding-right: 22px;
+  word-break: break-word;
+}
+
+.card-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  color: #9ca3af;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card:hover .card-delete {
+  opacity: 1;
+}
+
+.card-delete:hover {
+  color: #dc2626;
+  background-color: #fee2e2;
+}
+
+.drop-zone {
+  min-height: 36px;
+  border: 2px dashed transparent;
+  border-radius: 8px;
+  margin: 6px 0;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.drop-zone.active {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+
+.add-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  color: #6b7280;
+  padding: 6px 4px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.15s, color 0.15s;
+  font-family: inherit;
+}
+
+.add-trigger:hover {
+  background-color: #d1d5db;
+  color: #111827;
+}
+
+.add-form {
+  display: none;
+  margin-top: 6px;
+}
+
+.add-form.visible {
+  display: block;
+}
+
+.add-input {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1a1a2e;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+}
+
+.add-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.btn-add {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.15s;
+}
+
+.btn-add:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-cancel {
+  background: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.15s;
+}
+
+.btn-cancel:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}

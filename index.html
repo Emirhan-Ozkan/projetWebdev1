@@ -1,11 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau Kanban</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
+
+  <header>
+    <h1> Le Lémirhan Kanban</h1>
+  </header>
+
+  <main class="board" id="board">
+
+    <!-- Colonne À faire -->
+    <section class="column" id="col-todo" data-col="todo">
+      <div class="column-header">
+        <span class="column-title">À faire</span>
+        <span class="column-count" id="count-todo">0</span>
+      </div>
+      <div class="cards" id="cards-todo"></div>
+      <div class="drop-zone" id="drop-todo"></div>
+      <button class="add-trigger" onclick="showForm('todo')">+ Ajouter une carte</button>
+      <div class="add-form" id="form-todo">
+        <textarea class="add-input" id="input-todo" rows="2" placeholder="Titre de la tâche..."></textarea>
+        <div class="form-actions">
+          <button class="btn-add" onclick="addCard('todo')">Ajouter</button>
+          <button class="btn-cancel" onclick="hideForm('todo')">Annuler</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colonne En cours -->
+    <section class="column" id="col-doing" data-col="doing">
+      <div class="column-header">
+        <span class="column-title">En cours</span>
+        <span class="column-count" id="count-doing">0</span>
+      </div>
+      <div class="cards" id="cards-doing"></div>
+      <div class="drop-zone" id="drop-doing"></div>
+      <button class="add-trigger" onclick="showForm('doing')">+ Ajouter une carte</button>
+      <div class="add-form" id="form-doing">
+        <textarea class="add-input" id="input-doing" rows="2" placeholder="Titre de la tâche..."></textarea>
+        <div class="form-actions">
+          <button class="btn-add" onclick="addCard('doing')">Ajouter</button>
+          <button class="btn-cancel" onclick="hideForm('doing')">Annuler</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colonne Terminé -->
+    <section class="column" id="col-done" data-col="done">
+      <div class="column-header">
+        <span class="column-title">Terminé</span>
+        <span class="column-count" id="count-done">0</span>
+      </div>
+      <div class="cards" id="cards-done"></div>
+      <div class="drop-zone" id="drop-done"></div>
+      <button class="add-trigger" onclick="showForm('done')">+ Ajouter une carte</button>
+      <div class="add-form" id="form-done">
+        <textarea class="add-input" id="input-done" rows="2" placeholder="Titre de la tâche..."></textarea>
+        <div class="form-actions">
+          <button class="btn-add" onclick="addCard('done')">Ajouter</button>
+          <button class="btn-cancel" onclick="hideForm('done')">Annuler</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
