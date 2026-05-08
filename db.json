@@ -28,6 +28,5 @@
       "list":"done",
       "priority":1
     }
-    ],
-  "$schema": "./node_modules/json-server/schema.json"
+    ]
 }
