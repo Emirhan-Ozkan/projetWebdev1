@@ -7,7 +7,7 @@ export async function getTasks() {
 }
 
 
-export function addTask(task) {
+export function addTaskServer(task) {
     try {
         fetch(`${API_URL}/tasks`, {
             method: "POST",

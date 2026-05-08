@@ -25,7 +25,7 @@
         <!-- Les tâches sont ici -->
       </div>
       <div class="drop-zone" id="drop-todo"></div>
-      <button class="add-trigger" onclick="showForm('todo')">+ Ajouter une carte</button>
+      <button class="add-trigger" id="addTodoBtn">+ Ajouter une carte</button>
       <div class="add-form" id="form-todo">
         <textarea class="add-input" id="input-todo" rows="2" placeholder="Titre de la tâche..."></textarea>
         <div class="form-actions">
@@ -45,7 +45,7 @@
         <!-- Les tâches sont ici -->
       </div>
       <div class="drop-zone" id="drop-doing"></div>
-      <button class="add-trigger" onclick="showForm('doing')">+ Ajouter une carte</button>
+      <button class="add-trigger" id="addDoingBtn">+ Ajouter une carte</button>
       <div class="add-form" id="form-doing">
         <textarea class="add-input" id="input-doing" rows="2" placeholder="Titre de la tâche..."></textarea>
         <div class="form-actions">
@@ -65,7 +65,7 @@
         <!-- Les tâches sont ici -->
       </div>
       <div class="drop-zone" id="drop-done"></div>
-      <button class="add-trigger" onclick="showForm('done')">+ Ajouter une carte</button>
+      <button class="add-trigger" id="addDoneBtn">+ Ajouter une carte</button>
       <div class="add-form" id="form-done">
         <textarea class="add-input" id="input-done" rows="2" placeholder="Titre de la tâche..."></textarea>
         <div class="form-actions">
@@ -74,6 +74,24 @@
         </div>
       </div>
     </section>
+
+    <dialog id="task-dialog">
+        <h2 id="task-dialog__title">Ajouter/Modifier une tâche : </h2>
+        <form id="task-dialog__form">
+            <div>
+                <label for="task-dialog__task-title">Titre :</label>
+                <input type="text" id="task-dialog__task-title" required>
+            </div>
+            <div>
+                <label for="task-dialog__task-description">Description :</label>
+                <textarea id="task-dialog__task-description" required></textarea>
+            </div>
+            <div>
+                <button type="submit" id="task-dialog__save-btn">Sauvegarder</button>
+                <button type="button" id="task-dialog__cancel-btn">Annuler</button>
+            </div>
+        </form>
+    </dialog>
 
   </main>
 </body>
