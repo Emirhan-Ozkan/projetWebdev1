@@ -29,9 +29,9 @@ export function removeTask(task) {
     });
 }
 
-export function saveTasks(task) {
+export function saveTask(task) {
     try {
-        fetch(`${API_URL}/todos/${task.id}`, {
+        fetch(`${API_URL}/tasks/${task.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(task)

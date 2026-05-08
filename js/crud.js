@@ -1,6 +1,7 @@
 import { getTasks } from "./data-access.js";
 import { addTaskServer } from "./data-access.js";
 import { removeTask } from "./data-access.js";
+import { saveTask } from "./data-access.js";
 
 let todo;
 let doing;
@@ -12,6 +13,8 @@ const addDone = document.querySelector("#addDoneBtn");
 
 const dialog = document.querySelector("#task-dialog");
 let listConcerned = "";
+let method = "";
+let taskConcerned = {}
 
 const saveBtn = document.querySelector("#task-dialog__save-btn");
 const cancelBtn = document.querySelector("#task-dialog__cancel-btn")
@@ -38,23 +41,31 @@ export function initTasks() {
 
     addTodo.addEventListener("click", () => {
         listConcerned = "todo";
+        method = "create";
         dialog.showModal();
     });
     addDoing.addEventListener("click", () => {
         listConcerned = "doing";
+        method = "create";
         dialog.showModal();
     });
     addDone.addEventListener("click", () => {
         listConcerned = "done";
+        method = "create";
         dialog.showModal();
     });
 
     saveBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        createTask(listConcerned);
+        if (method == "create") {
+            createTask(listConcerned);
+        }
+        else {
+            updateTask();
+        }
         dialog.close();
     });
-    cancelBtn.addEventListener("click", dialog.close());
+    cancelBtn.addEventListener("click", () => dialog.close());
 }
 
 function sortTasks(tasks, correspondingList, listName) {
@@ -90,6 +101,13 @@ function addTask(task) {
     div.appendChild(editButton);
     div.setAttribute("draggable", "true");
     deleteButton.addEventListener("click", () => deleteTask(task));
+    editButton.addEventListener("click", () => {
+        taskConcerned = task;
+        method = "update";
+        document.querySelector("#task-dialog__task-title").value = task.title;
+        document.querySelector("#task-dialog__task-description").value = task.description;
+        dialog.showModal();
+    });
     return div;
 }
 
@@ -136,4 +154,10 @@ function createTask(listName) {
 function deleteTask(task) {
     removeTask(task);
     refresh();
+}
+
+function updateTask() {
+    taskConcerned.title = taskTitle.value;
+    taskConcerned.description = taskDesc.value;
+    saveTask(taskConcerned);
 }
