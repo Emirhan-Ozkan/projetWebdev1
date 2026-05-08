@@ -1,5 +1,6 @@
 import { getTasks } from "./data-access.js";
 import { addTaskServer } from "./data-access.js";
+import { removeTask } from "./data-access.js";
 
 let todo;
 let doing;
@@ -88,6 +89,7 @@ function addTask(task) {
     div.appendChild(deleteButton);
     div.appendChild(editButton);
     div.setAttribute("draggable", "true");
+    deleteButton.addEventListener("click", () => deleteTask(task));
     return div;
 }
 
@@ -129,4 +131,9 @@ function createTask(listName) {
 
     addTaskServer(task);
 
+}
+
+function deleteTask(task) {
+    removeTask(task);
+    refresh();
 }

@@ -21,15 +21,20 @@ export function addTaskServer(task) {
 }
 
 export function removeTask(task) {
-
+    fetch(`${API_URL}/tasks/` + task.id, {
+        method: "DELETE"
+    })
+    .catch(function(error) {
+        console.error("Erreur, la tâche n'a pas pu être supprimée !");
+    });
 }
 
 export function saveTasks(task) {
     try {
-        fetch(`${API_URL}/todos/${todo.id}`, {
+        fetch(`${API_URL}/todos/${task.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(todo)
+            body: JSON.stringify(task)
         });
     }
     catch {

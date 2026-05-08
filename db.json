@@ -8,13 +8,6 @@
       "priority": 1
     },
     {
-      "id": "2",
-      "title": "Répondre aux emails",
-      "description": "Traiter les messages professionnels en attente",
-      "list": "todo",
-      "priority": 2
-    },
-    {
       "id": "3",
       "title": "Appeler le dentiste",
       "description": "Prendre rendez-vous pour un contrôle",
@@ -27,27 +20,6 @@
       "description": "Compléter l'analyse du projet Q1",
       "list": "done",
       "priority": 1
-    },
-    {
-      "title": "srvfsfv",
-      "description": "sdvfbsdvf",
-      "list": "todo",
-      "priority": 3,
-      "id": "Y5Y3or7gbCY"
-    },
-    {
-      "title": "sdfvsdfv",
-      "description": "sdvfsdfvds",
-      "list": "doing",
-      "priority": 2,
-      "id": "I_n0mItjGq0"
-    },
-    {
-      "title": "sdvfdsvfds",
-      "description": "vfdsvfdsfv",
-      "list": "done",
-      "priority": 2,
-      "id": "n1LsWn47i5M"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
