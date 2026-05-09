@@ -31,7 +31,7 @@ export function removeTask(task) {
 
 export function saveTask(task) {
     try {
-        fetch(`${API_URL}/tasks/${task.id}`, {
+        return fetch(`${API_URL}/tasks/${task.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(task)
@@ -41,3 +41,5 @@ export function saveTask(task) {
         console.log("Erreur. Nous n'avons pas pu sauvegarder les données.");
     }
 }
+
+

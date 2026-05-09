@@ -3,9 +3,11 @@ import { addTaskServer } from "./data-access.js";
 import { removeTask } from "./data-access.js";
 import { saveTask } from "./data-access.js";
 
-let todo;
-let doing;
-let done;
+const API_URL = "http://localhost:3000";
+
+let todo = document.querySelector("#cards-todo");
+let doing = document.querySelector("#cards-doing");
+let done = document.querySelector("#cards-done");
 
 const addTodo = document.querySelector("#addTodoBtn");
 const addDoing = document.querySelector("#addDoingBtn");
@@ -24,34 +26,38 @@ const taskDesc = document.querySelector("#task-dialog__task-description");
 
 export function initTasks() {
 
-    todo = document.querySelector("#cards-todo");
-    doing = document.querySelector("#cards-doing");
-    done = document.querySelector("#cards-done");
-
     getTasks()
     .then(function(tasks){
         sortTasks(tasks, todo, "todo");
         sortTasks(tasks, doing, "doing");
         sortTasks(tasks, done, "done");
-        refresh();
+        refreshCounts();
     })
     .catch(function(error){
         console.error("Erreur, nous n'avons pas pu récuperer les données !");
     })
 
+    handlePriorities();
+
     addTodo.addEventListener("click", () => {
         listConcerned = "todo";
         method = "create";
+        taskTitle.value = "";
+        taskDesc.value = "";
         dialog.showModal();
     });
     addDoing.addEventListener("click", () => {
         listConcerned = "doing";
         method = "create";
+        taskTitle.value = "";
+        taskDesc.value = "";
         dialog.showModal();
     });
     addDone.addEventListener("click", () => {
         listConcerned = "done";
         method = "create";
+        taskTitle.value = "";
+        taskDesc.value = "";
         dialog.showModal();
     });
 
@@ -89,9 +95,9 @@ function addTask(task) {
 
     div.classList.add("task");
     div.classList.add("card");
-    titleP.classList.add("todo__title");
+    titleP.classList.add("task-title");
     titleP.setAttribute("style", "font-weight:bold");
-    descP.classList.add("todo__description");
+    descP.classList.add("task-description");
     deleteButton.textContent = "Supprimer";
     editButton.textContent = "Modifier";
 
@@ -108,10 +114,12 @@ function addTask(task) {
         document.querySelector("#task-dialog__task-description").value = task.description;
         dialog.showModal();
     });
+
+    div.setAttribute("data-id", task.id);
     return div;
 }
 
-function refresh() {
+function refreshCounts() {
     let todoCount = document.querySelector("#count-todo");
     let doingCount = document.querySelector("#count-doing");
     let doneCount = document.querySelector("#count-done");
@@ -127,7 +135,7 @@ function createTask(listName) {
     task.description = taskDesc.value;
     task.list = listName;
 
-    /* Avoir la priorité égale à 1 + le nombre de tâches dans la liste, pour être sur qu'il apparait à la fin*/
+    // Avoir la priorité égale à 1 + le nombre de tâches dans la liste, pour être sur qu'il apparait à la fin
     const countId = "#count-" + listName; /*pour avoir quelque chose comme #count-todo */
     const countElement = document.querySelector(countId);
     const nbTasks = Number(countElement.textContent);
@@ -149,15 +157,47 @@ function createTask(listName) {
 
     addTaskServer(task);
 
+    refreshCounts();
+
 }
 
 function deleteTask(task) {
+    
+    // DOM
+    const card = document.querySelector(`[data-id="${task.id}"]`);
+    card.remove();
+
+    // Serveur
     removeTask(task);
-    refresh();
+
+    refreshCounts();
 }
 
 function updateTask() {
+    // DOM
+    const card = document.querySelector(`[data-id="${taskConcerned.id}"]`);
+    card.querySelector(".task-title").textContent = taskTitle.value;
+    card.querySelector(".task-description").textContent = taskDesc.value;
+
+    // Serveur
     taskConcerned.title = taskTitle.value;
     taskConcerned.description = taskDesc.value;
+
     saveTask(taskConcerned);
+    refreshCounts();
+}
+
+export async function handlePriorities() {
+    /* Réindexer les priorités de chaque colonne */
+    [todo, doing, done].forEach(list => {
+        const cards = list.querySelectorAll(".card");
+        cards.forEach((card, index) => {
+            const id = card.getAttribute("data-id");
+            fetch(`${API_URL}/tasks/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ priority: index + 1 })
+            });
+        });
+    }); 
 }
