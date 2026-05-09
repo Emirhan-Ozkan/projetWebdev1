@@ -1,6 +1,7 @@
 import { getTasks } from "./data-access.js";
 import { saveTask } from "./data-access.js";
 import { handlePriorities } from "./crud.js";
+import { refreshCounts } from "./crud.js";
 
 const API_URL = "http://localhost:3000";
 
@@ -75,15 +76,16 @@ function handleDragEnd(e) {
     if (Math.abs(shiftX) <= 200) {
 
         // Serveur
-        task.priority += Math.trunc(shiftY / 70);
+        task.priority += (2*Math.trunc(shiftY / 70))+Math.sign(shiftY);
 
         // DOM
-        const list = task.list === "todo" ? todo : task.list === "doing" ? doing : done;
-        const cards = [...list.querySelectorAll(".card")];
         const draggedCard = document.querySelector(`[data-id="${task.id}"]`);
-        let newIndex = task.priority + Math.trunc(shiftY / 70) - 1;
+        const list = task.list === "todo" ? todo : task.list === "doing" ? doing : done;
+        const cards = [...list.querySelectorAll(".card")].filter(card => card !== draggedCard);
+        let newIndex = task.priority - 1;
 
         if (newIndex <= 0) {newIndex = 0};
+
         const referenceCard = cards[newIndex];
         if (referenceCard) {
             list.insertBefore(draggedCard, referenceCard);
@@ -92,7 +94,54 @@ function handleDragEnd(e) {
         }
     }
 
+    // Avec shift horizontal
+    else {
+
+        // Serveur
+        if (task.list === "todo") {
+            if (shiftX > 400) {
+                task.list = "done";
+            }
+            else {
+                task.list = "doing";
+            }
+        }
+        else if (task.list === "doing") {
+            if (shiftX > 200) {
+                task.list = "done";
+            }
+            else {
+                task.list = "todo";
+            }
+        }
+        else {
+            if (shiftX < -400) {
+                task.list = "todo";
+            }
+            else {
+                task.list = "doing";
+            }
+        }
+
+        task.priority += 2*Math.trunc(shiftY / 70)+Math.sign(shiftY);
+
+        // DOM
+        const draggedCard = document.querySelector(`[data-id="${task.id}"]`);
+        const newList = task.list === "todo" ? todo : task.list === "doing" ? doing : done;
+        const cards = [...newList.querySelectorAll(".card")].filter(card => card !== draggedCard);
+        let newIndex = task.priority - 1;
+
+        if (newIndex <= 0) {newIndex = 0}
+
+        const referenceCard = cards[newIndex];
+        if (referenceCard) {
+            newList.insertBefore(draggedCard, referenceCard);
+        } else {
+            newList.append(draggedCard);
+        }
+    }    
     console.log(task.priority);
+    refreshCounts();
     saveTask(task)
     .then(() => handlePriorities());
 }

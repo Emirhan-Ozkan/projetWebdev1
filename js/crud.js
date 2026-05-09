@@ -119,7 +119,7 @@ function addTask(task) {
     return div;
 }
 
-function refreshCounts() {
+export function refreshCounts() {
     let todoCount = document.querySelector("#count-todo");
     let doingCount = document.querySelector("#count-doing");
     let doneCount = document.querySelector("#count-done");
@@ -196,7 +196,7 @@ export async function handlePriorities() {
             fetch(`${API_URL}/tasks/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ priority: index + 1 })
+                body: JSON.stringify({ priority: (2*index) + 1 })
             });
         });
     }); 

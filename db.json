@@ -11,14 +11,14 @@
       "title": "Tache 1",
       "description": "On va faire semblant",
       "list": "todo",
-      "priority": 1,
+      "priority": 5,
       "id": "X46gBg1eVU4"
     },
     {
       "title": "what",
       "description": "what",
       "list": "todo",
-      "priority": 2,
+      "priority": 1,
       "id": "mjNhaNRqPCw"
     }
   ],
