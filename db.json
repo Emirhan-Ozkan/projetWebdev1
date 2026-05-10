@@ -1,25 +1,25 @@
 {
   "tasks": [
     {
-      "title": "Tache 2",
-      "description": "A faire maintenant et tout de su",
-      "list": "todo",
-      "priority": 3,
-      "id": "j9fbVxhdZeI"
+      "title": "beghfubgdv",
+      "description": "evergvergvergv",
+      "list": "done",
+      "priority": 1,
+      "id": "0cohvEC_Qdc"
     },
     {
-      "title": "Tache 1",
-      "description": "On va faire semblant",
-      "list": "todo",
-      "priority": 5,
-      "id": "X46gBg1eVU4"
+      "title": "aa",
+      "description": "a",
+      "list": "doing",
+      "priority": 1,
+      "id": "T47u9uDpp24"
     },
     {
-      "title": "what",
-      "description": "what",
+      "title": "a",
+      "description": "aa",
       "list": "todo",
       "priority": 1,
-      "id": "mjNhaNRqPCw"
+      "id": "qP88SyA97VM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
