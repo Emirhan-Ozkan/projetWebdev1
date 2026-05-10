@@ -1,15 +1,17 @@
 const API_URL = "http://localhost:3000";
 
 export async function getTasks() {
+    // récupérer les tâches
     const response = await fetch(`${API_URL}/tasks`);
     const data = await response.json();
     return data;
 }
 
 
-export function addTaskServer(task) {
+export async function addTaskServer(task) {
+    // ajouter la tâche task dans le database
     try {
-        fetch(`${API_URL}/tasks`, {
+        return fetch(`${API_URL}/tasks`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(task)
@@ -21,15 +23,17 @@ export function addTaskServer(task) {
 }
 
 export function removeTask(task) {
-    fetch(`${API_URL}/tasks/` + task.id, {
+    // supprimer la tâche task de la database
+    return fetch(`${API_URL}/tasks/` + task.id, {
         method: "DELETE"
     })
     .catch(function(error) {
-        console.error("Erreur, la tâche n'a pas pu être supprimée !");
+        console.error("Erreur, la tâche n'a pas pu être supprimée !", error);
     });
 }
 
 export function saveTask(task) {
+    // sauvegarder la tâche task dans la database
     try {
         return fetch(`${API_URL}/tasks/${task.id}`, {
             method: "PUT",
